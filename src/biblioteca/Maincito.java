@@ -22,6 +22,7 @@ public class Maincito
     {
         
         Manipulacion.cargarDatos();
+        Sesion.cargarSesion();
         
         Libro uno = new Libro("Frankenstein", "Mary Shelley", 2009, 1, 'D');
         Libro dos = new Libro("Veinte mil leguas de viaje submarino", "Julio Verne", 1870, 2, 'D');
@@ -45,15 +46,19 @@ public class Maincito
         AccionAdmin.agregar(ocho);
         AccionAdmin.agregar(nueve);
         
-        Manipulacion.guardarDatos();
-        
-        Sesion.cargarSesion();
-        
         Usuario usuUno = new Usuario("Juan", "Juanito", "1234");
         Usuario dis = new Usuario("Pedro", "Pedrito", "1234");
         Administrador adminUno = new Administrador("Admin", "admin", "1234");
         Administrador adminDos = new Administrador("AdminDos", "admindos", "1234");
         
+        Sesion.agregarAdmin(adminUno);
+        Sesion.agregarAdmin(adminDos);
+        Sesion.agregarUsuario(usuUno);
+        Sesion.agregarUsuario(dis);
+        
+        Sesion.inicio();
+        
+        Manipulacion.guardarDatos();
         Sesion.guardarSesion();
         
     }

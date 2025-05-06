@@ -13,6 +13,7 @@ public class Libro implements Serializable
     private char estado;
     private static int cons = 0;
     private String id;
+    private String idUsuarioPrestamo;
 
     public Libro(String titulo, String autor, int anio, long isbn, char estado)
     {
@@ -122,13 +123,21 @@ public class Libro implements Serializable
         
         return id;
     }
+    
+    public void setIdUsuarioPrestamo(String idUsuario)
+    {
+        this.idUsuarioPrestamo = idUsuario;
+    }
+    
+    public String getIdUsuarioPrestamo()
+    {
+        return idUsuarioPrestamo;
+    }
 
     @Override
     public String toString()
     {
-        return "Libro{" + "titulo=" + titulo + ", autor=" + autor + ", anio=" + anio + ", isbn=" + isbn + ", estado=" + estado + ", id=" + formatoId(id) + '}';
+        return "Libro{" + "titulo=" + titulo + ", autor=" + autor + ", anio=" + anio + ", isbn=" + isbn + ", estado=" + estadoTexto() + ", id=" + formatoId(id) + '}';
     }
-
-    
     
 }

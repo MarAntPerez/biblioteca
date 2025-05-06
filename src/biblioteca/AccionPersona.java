@@ -12,11 +12,6 @@ import poo.Lecturas;
 public class AccionPersona
 {
 
-    public static void registro()
-    {
-
-    }
-
     public static void buscar()
     {
         if (isEmpty())
@@ -82,11 +77,6 @@ public class AccionPersona
                 }
             } while (bus != Manipulacion.menuBuscar.length);
         }
-    }
-
-    public static void login()
-    {
-
     }
 
     public static boolean isEmpty()

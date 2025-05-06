@@ -1,0 +1,7 @@
+Fecha: 06/05/2025
+Libros Prestados
+Título                                   Autor                Año        ISBN      
+--------------------------------------------------------------------------
+Ready Player One                         Ernest Cline         2011       8         
+Ready Player One                         Ernest Cline         2011       8         
+Ready Player One                         Ernest Cline         2011       8         

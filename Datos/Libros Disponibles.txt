@@ -1,0 +1,31 @@
+Fecha: 06/05/2025
+Libros Disponibles
+Título                                   Autor                Año        ISBN      
+--------------------------------------------------------------------------
+Orgullo y prejuicio                      Jane Austen          1813       9         
+El problema de los tres cuerpos          Cixin Liu            2006       7         
+La guerra interminable                   Joe Haldeman         1974       6         
+Dune                                     Frank Herbert        1965       5         
+Yo, Robot                                Issac Asimov         1950       4         
+1984                                     George Orwell        1949       3         
+Veinte mil leguas de viaje submarino     Julio Verne          1870       2         
+Frankenstein                             Mary Shelley         2009       1         
+Bajo la misma estrella                   John Green           2012       10        
+Orgullo y prejuicio                      Jane Austen          1813       9         
+El problema de los tres cuerpos          Cixin Liu            2006       7         
+La guerra interminable                   Joe Haldeman         1974       6         
+Dune                                     Frank Herbert        1965       5         
+Yo, Robot                                Issac Asimov         1950       4         
+1984                                     George Orwell        1949       3         
+Veinte mil leguas de viaje submarino     Julio Verne          1870       2         
+Frankenstein                             Mary Shelley         2009       1         
+Bajo la misma estrella                   John Green           2012       10        
+Orgullo y prejuicio                      Jane Austen          1813       9         
+El problema de los tres cuerpos          Cixin Liu            2006       7         
+La guerra interminable                   Joe Haldeman         1974       6         
+Dune                                     Frank Herbert        1965       5         
+Yo, Robot                                Issac Asimov         1950       4         
+1984                                     George Orwell        1949       3         
+Veinte mil leguas de viaje submarino     Julio Verne          1870       2         
+Frankenstein                             Mary Shelley         2009       1         
+Bajo la misma estrella                   John Green           2012       10        

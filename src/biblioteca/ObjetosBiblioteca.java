@@ -15,6 +15,8 @@ public class ObjetosBiblioteca
     static public NodoAdmin primerAdmin;
     static public NodoUser primerUser;
     static public HashMap<Long, Libro> mapa = new HashMap<>();
+    static Libro[] librosDisponibles = new Libro[0];
+    static Libro[] librosPrestados = new Libro[0];
 
     public ObjetosBiblioteca()
     {

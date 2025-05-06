@@ -11,12 +11,27 @@ public class Usuario extends Persona implements Serializable
     private static final long serialVersionUID = 1L;
     private static int cons = 0;
     private String id;
+    private String sancion;
     
     public Usuario(String nombre, String user, String contrasenia)
     {
         super(nombre, user, contrasenia);
         this.id = Integer.toString(cons);
         cons++;
+        sancion = "No aplica";
+    }
+    
+    public String getId()
+    {
+        return id;
+    }
+    
+    public void setSancion(String sancion){
+        this.sancion = sancion;
+    }
+    
+    public String getSancion(){
+        return sancion;
     }
     
     public static String formatoId(String id)

@@ -55,6 +55,9 @@ public class Sesion
                     break;
             }
         } while (opc != menuInicio.length);
+        
+        Sesion.guardarSesion();
+        Manipulacion.guardarDatos();
 
     }
 
@@ -165,7 +168,7 @@ public class Sesion
         return (ObjetosBiblioteca.primerAdmin == null);
     }
 
-    private static boolean isEmptyUser()
+    public static boolean isEmptyUser()
     {
         return (ObjetosBiblioteca.primerUser == null);
     }
