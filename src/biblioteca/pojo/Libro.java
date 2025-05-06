@@ -1,4 +1,4 @@
-package biblioteca;
+package biblioteca.pojo;
 
 import java.io.Serializable;
 
@@ -11,6 +11,8 @@ public class Libro implements Serializable
     private int anio;
     private long isbn;
     private char estado;
+    private static int cons = 0;
+    private String id;
 
     public Libro(String titulo, String autor, int anio, long isbn, char estado)
     {
@@ -19,6 +21,8 @@ public class Libro implements Serializable
         this.anio = anio;
         this.isbn = isbn;
         this.estado = estado;
+        this.id = Integer.toString(cons);
+        cons++;
     }
 
     public Libro()
@@ -108,12 +112,23 @@ public class Libro implements Serializable
     public String estadoTexto(){
         return (estado == 'D') ? "Disponible" : "Prestado";
     }
+    
+    public static String formatoId(String id)
+    {
+        while (id.length() < 5)
+        {
+            id = "0" + id;
+        }
+        
+        return id;
+    }
 
     @Override
     public String toString()
     {
-        return "Titulo = " + titulo + "\nAutor = " + autor + "\nAnio = " + anio + "\nISBN = " + isbn + "\nEstado = " + estadoTexto() + "\n";
+        return "Libro{" + "titulo=" + titulo + ", autor=" + autor + ", anio=" + anio + ", isbn=" + isbn + ", estado=" + estado + ", id=" + formatoId(id) + '}';
     }
+
     
     
 }

@@ -1,5 +1,7 @@
 package biblioteca;
 
+import biblioteca.pojo.Usuario;
+import biblioteca.pojo.Administrador;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -23,8 +25,6 @@ public class Sesion
     {
         "Nuevo Administrador.", "Nuevo Usuario", "Salir"
     };
-    static public NodoAdmin primerAdmin;
-    static public NodoUser primerUser;
 
     public static void inicio()
     {
@@ -88,26 +88,32 @@ public class Sesion
 
     private static void nuevaPersona(String tipo)
     {
+        boolean valido = false;
+        String user;
         System.out.println("Ingrese su nombre: ");
         String nombre = Lecturas.leerCadena();
-        System.out.println("Ingrese su usuario: ");
-        String user = Lecturas.leerCadena();
+        do
+        {
+            System.out.println("Ingrese su usuario: ");
+            user = Lecturas.leerCadena();
+            valido = validaUsuario(user);
+            if (!valido)
+            {
+                System.out.println("El usuario ya existe");
+            }
+        } while (!valido);
         System.out.println("Ingrese su cointrasenia: ");
         String contrasenia = Lecturas.leerCadena();
 
         if (tipo.equals("Administrador"))
         {
             Administrador admin = new Administrador(nombre, user, contrasenia);
-            NodoAdmin nuevo = new NodoAdmin(admin);
-            nuevo.siguiente = primerAdmin;
-            primerAdmin = nuevo;
-            System.out.println(tipo + "agregado con exito.");
+            agregarAdmin(admin);
+            System.out.println(" Administrador agregado con exito.");
         } else if (tipo.equals("Usuario"))
         {
             Usuario usuario = new Usuario(nombre, user, contrasenia);
-            NodoUser nuevo = new NodoUser(usuario);
-            nuevo.siguiente = primerUser;
-            primerUser = nuevo;
+            agregarUsuario(usuario);
             System.out.println(tipo + "agregado con exito.");
         } else
         {
@@ -115,14 +121,53 @@ public class Sesion
         }
     }
 
+    public static void agregarAdmin(Administrador admin)
+    {
+        NodoAdmin nuevo = new NodoAdmin(admin);
+        nuevo.siguiente = ObjetosBiblioteca.primerAdmin;
+        ObjetosBiblioteca.primerAdmin = nuevo;
+    }
+
+    public static void agregarUsuario(Usuario usuario)
+    {
+        NodoUser nuevo = new NodoUser(usuario);
+        nuevo.siguiente = ObjetosBiblioteca.primerUser;
+        ObjetosBiblioteca.primerUser = nuevo;
+    }
+
+    public static boolean validaUsuario(String user)
+    {
+        NodoAdmin auxAdmin = ObjetosBiblioteca.primerAdmin;
+        while (auxAdmin != null)
+        {
+            if (auxAdmin.admin.getUser().equalsIgnoreCase(user))
+            {
+                return false;
+            }
+            auxAdmin = auxAdmin.siguiente;
+        }
+
+        NodoUser auxUser = ObjetosBiblioteca.primerUser;
+        while (auxUser != null)
+        {
+            if (auxUser.user.getUser().equalsIgnoreCase(user))
+            {
+                return false;
+            }
+            auxUser = auxUser.siguiente;
+        }
+
+        return true;
+    }
+
     private static boolean isEmptyAdmin()
     {
-        return (primerAdmin == null);
+        return (ObjetosBiblioteca.primerAdmin == null);
     }
 
     private static boolean isEmptyUser()
     {
-        return (primerUser == null);
+        return (ObjetosBiblioteca.primerUser == null);
     }
 
     private static void ingresar(String tipo)
@@ -144,13 +189,13 @@ public class Sesion
                 System.out.println("Ingrese su contrasenia: ");
                 String contrasenia = Lecturas.leerCadena();
 
-                NodoAdmin aux = primerAdmin;
+                NodoAdmin aux = ObjetosBiblioteca.primerAdmin;
                 while (aux != null)
                 {
                     if (aux.admin.getUser().equals(user) && aux.admin.getContrasenia().equals(contrasenia))
                     {
                         System.out.println("Bienvenido " + aux.admin.getNombre());
-                        Manipulacion.opcionesAdmin();
+                        AccionAdmin.opcionesAdmin();
                         encontrado = true;
                         break;
                     }
@@ -179,13 +224,13 @@ public class Sesion
                 System.out.println("Ingrese su contrasenia: ");
                 String contrasenia = Lecturas.leerCadena();
 
-                NodoUser aux = primerUser;
+                NodoUser aux = ObjetosBiblioteca.primerUser;
                 while (aux != null)
                 {
                     if (aux.user.getUser().equals(user) && aux.user.getContrasenia().equals(contrasenia))
                     {
                         System.out.println("Bienvenido " + aux.user.getNombre());
-                        Manipulacion.opcionesUser();
+                        AccionUsuario.opcionesUser();
                         encontrado = true;
                         break;
                     }
@@ -205,12 +250,12 @@ public class Sesion
     {
         try
         {
-            ObjectOutputStream oosAdmin = new ObjectOutputStream(new FileOutputStream("admins.dat"));
-            oosAdmin.writeObject(primerAdmin);
+            ObjectOutputStream oosAdmin = new ObjectOutputStream(new FileOutputStream("Datos/Administradores.dat"));
+            oosAdmin.writeObject(ObjetosBiblioteca.primerAdmin);
             oosAdmin.close();
 
-            ObjectOutputStream oosUser = new ObjectOutputStream(new FileOutputStream("users.dat"));
-            oosUser.writeObject(primerUser);
+            ObjectOutputStream oosUser = new ObjectOutputStream(new FileOutputStream("Datos/Usuarios.dat"));
+            oosUser.writeObject(ObjetosBiblioteca.primerUser);
             oosUser.close();
 
             System.out.println("Sesión guardada correctamente.");
@@ -225,38 +270,38 @@ public class Sesion
     {
         try
         {
-            File adminFile = new File("admins.dat");
+            File adminFile = new File("Datos/Administradores.dat");
             if (adminFile.exists())
             {
                 ObjectInputStream oisAdmin = new ObjectInputStream(new FileInputStream(adminFile));
-                primerAdmin = (NodoAdmin) oisAdmin.readObject();
+                ObjetosBiblioteca.primerAdmin = (NodoAdmin) oisAdmin.readObject();
                 oisAdmin.close();
             } else
             {
-                primerAdmin = null;
+                ObjetosBiblioteca.primerAdmin = null;
             }
         } catch (IOException | ClassNotFoundException e)
         {
             System.out.println("Error al cargar administradores: " + e.getMessage());
-            primerAdmin = null;
+            ObjetosBiblioteca.primerAdmin = null;
         }
 
         try
         {
-            File userFile = new File("users.dat");
+            File userFile = new File("Datos/Usuarios.dat");
             if (userFile.exists())
             {
                 ObjectInputStream oisUser = new ObjectInputStream(new FileInputStream(userFile));
-                primerUser = (NodoUser) oisUser.readObject();
+                ObjetosBiblioteca.primerUser = (NodoUser) oisUser.readObject();
                 oisUser.close();
             } else
             {
-                primerUser = null;
+                ObjetosBiblioteca.primerUser = null;
             }
         } catch (IOException | ClassNotFoundException e)
         {
             System.out.println("Error al cargar usuarios: " + e.getMessage());
-            primerUser = null;
+            ObjetosBiblioteca.primerUser = null;
         }
 
         System.out.println("Sesión cargada correctamente (o inicializada si era nueva).");

@@ -1,4 +1,4 @@
-package biblioteca;
+package biblioteca.pojo;
 
 import java.io.Serializable;
 

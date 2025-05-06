@@ -1,5 +1,6 @@
 package biblioteca;
 
+import biblioteca.pojo.Libro;
 import java.io.Serializable;
 
 /**

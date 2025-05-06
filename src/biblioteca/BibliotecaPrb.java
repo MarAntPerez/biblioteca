@@ -12,8 +12,11 @@ public class BibliotecaPrb
      */
     public static void main(String[] args)
     {
+        Manipulacion.cargarDatos();
+        Sesion.cargarSesion();
         Sesion.inicio();
-        //Manipulacion.opcionesAdmin();
+        Sesion.guardarSesion();
+        Manipulacion.guardarDatos();
     }
     
 }

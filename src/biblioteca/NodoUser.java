@@ -1,5 +1,6 @@
 package biblioteca;
 
+import biblioteca.pojo.Usuario;
 import java.io.Serializable;
 
 /**
