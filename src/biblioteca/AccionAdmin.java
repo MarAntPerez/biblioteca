@@ -23,7 +23,7 @@ public class AccionAdmin
 
     static private String[] menuAdmin =
     {
-        "Agregar libro", "Eliminar libro", "Buscar libro", "Prestar libro", "Devolver libro", "Revisar libros devueltos", "Generar reporte", "Salir"
+        "Agregar libro", "Eliminar libro", "Buscar libro", "Prestar libro", "Devolver libro", "Revisar libros devueltos", "Generar reporte", "Quitar sancion", "Salir"
     };
 
     public static void opcionesAdmin()
@@ -139,6 +139,19 @@ public class AccionAdmin
                     break;
 
                 case 9:
+                    System.out.println("Ingrese el id del usuario");
+                    String id = Lecturas.leerCadena();
+                    Usuario usuario = obtenerUsuario(id);
+                    if (usuario != null && usuario.getSancion().equals("No Aplica"))
+                    {
+                        System.out.println("El usuario no tiene una sancion.");
+                    } else
+                    {
+                        quitarSancion(usuario);
+                    }
+                    break;
+
+                case 10:
                     System.out.println("Saliendo...");
                     break;
 
@@ -175,7 +188,7 @@ public class AccionAdmin
         } while (estado != 'D' && estado != 'P');
 
         lib = new Libro(nombre, autor, anio, isbn, estado);
-
+        Manipulacion.guardarIds();
         agregar(lib);
     }
 
@@ -616,6 +629,20 @@ public class AccionAdmin
         }
 
         return obj;
+    }
+
+    public static void quitarSancion(Usuario usuario)
+    {
+        NodoUser aux = ObjetosBiblioteca.primerUser;
+        while (aux != null)
+        {
+            if (aux.user.getId().equals(usuario.getId()))
+            {
+                aux.user.setSancion("No aplica");
+                System.out.println("Sancion eliminada correctamente...");
+                return;
+            }
+        }
     }
 
 }

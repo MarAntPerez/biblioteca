@@ -87,11 +87,40 @@ public class Manipulacion
             ObjetosBiblioteca.fin = (Nodo) oisCola.readObject();
             oisCola.close();
 
+            try
+            {
+                Libro.setCons(cargarIds("Folios de Libros.dat"));
+            } catch (IOException e)
+            {
+                Libro.setCons(0);
+            }
+
             System.out.println("Datos cargados correctamente.");
 
         } catch (IOException | ClassNotFoundException e)
         {
             System.out.println("Error al cargar datos: " + e.getMessage());
+        }
+    }
+
+    public static int cargarIds(String archivo) throws IOException
+    {
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("Datos/" + archivo));
+        int valor = ois.readInt();
+        ois.close();
+        return valor;
+    }
+
+    public static void guardarIds()
+    {
+        try
+        {
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("Datos/Folios de Libros.dat"));
+            oos.writeInt(Libro.getCons());
+            oos.close();
+        } catch (IOException e)
+        {
+            System.out.println("Error al guardar folio: " + e.getMessage());
         }
     }
 

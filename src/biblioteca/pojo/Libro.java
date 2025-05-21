@@ -4,8 +4,9 @@ import java.io.Serializable;
 
 public class Libro implements Serializable
 {
+
     private static final long serialVersionUID = 1L;
-    public Libro next;    
+    public Libro next;
     private String titulo;
     private String autor;
     private int anio;
@@ -22,8 +23,8 @@ public class Libro implements Serializable
         this.anio = anio;
         this.isbn = isbn;
         this.estado = estado;
+        ++cons;
         this.id = Integer.toString(cons);
-        cons++;
     }
 
     public Libro()
@@ -109,29 +110,40 @@ public class Libro implements Serializable
     {
         this.estado = estado;
     }
-    
-    public String estadoTexto(){
+
+    public String estadoTexto()
+    {
         return (estado == 'D') ? "Disponible" : "Prestado";
     }
-    
+
     public static String formatoId(String id)
     {
         while (id.length() < 5)
         {
             id = "0" + id;
         }
-        
+
         return id;
     }
-    
+
     public void setIdUsuarioPrestamo(String idUsuario)
     {
         this.idUsuarioPrestamo = idUsuario;
     }
-    
+
     public String getIdUsuarioPrestamo()
     {
         return idUsuarioPrestamo;
+    }
+
+    public static int getCons()
+    {
+        return cons;
+    }
+
+    public static void setCons(int valor)
+    {
+        cons = valor;
     }
 
     @Override
@@ -139,5 +151,5 @@ public class Libro implements Serializable
     {
         return "Libro{" + "titulo=" + titulo + ", autor=" + autor + ", anio=" + anio + ", isbn=" + isbn + ", estado=" + estadoTexto() + ", id=" + formatoId(id) + '}';
     }
-    
+
 }

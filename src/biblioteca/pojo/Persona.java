@@ -67,4 +67,11 @@ public class Persona implements Serializable
     {
         this.contrasenia = contrasenia;
     }
+
+    @Override
+    public String toString()
+    {
+        return "Persona{" + "nombre=" + nombre + ", user=" + user + ", contrasenia=" + contrasenia + '}';
+    }
+    
 }

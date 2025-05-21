@@ -17,6 +17,16 @@ public class BibliotecaPrb
         Sesion.inicio();
         Sesion.guardarSesion();
         Manipulacion.guardarDatos();
+        admins();
+    }
+    
+    public static void admins(){
+        NodoAdmin ax = ObjetosBiblioteca.primerAdmin;
+        
+        while(ax != null){
+            System.out.println(ax.admin.toString());
+            ax = ax.siguiente;
+        }
     }
     
 }

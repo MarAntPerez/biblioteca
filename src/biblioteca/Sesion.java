@@ -5,6 +5,7 @@ import biblioteca.pojo.Administrador;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -55,7 +56,7 @@ public class Sesion
                     break;
             }
         } while (opc != menuInicio.length);
-        
+
         Sesion.guardarSesion();
         Manipulacion.guardarDatos();
 
@@ -261,6 +262,14 @@ public class Sesion
             oosUser.writeObject(ObjetosBiblioteca.primerUser);
             oosUser.close();
 
+            ObjectOutputStream oosContAdmin = new ObjectOutputStream(new FileOutputStream("Datos/ids_Admin.dat"));
+            oosContAdmin.writeObject(Administrador.getCons());
+            oosContAdmin.close();
+
+            ObjectOutputStream oosContUser = new ObjectOutputStream(new FileOutputStream("Datos/ids_User.dat"));
+            oosContUser.writeObject(Usuario.getCons());
+            oosContUser.close();
+
             System.out.println("Sesión guardada correctamente.");
 
         } catch (IOException e)
@@ -306,7 +315,36 @@ public class Sesion
             System.out.println("Error al cargar usuarios: " + e.getMessage());
             ObjetosBiblioteca.primerUser = null;
         }
-
+        
+        try{
+            File idsUser = new File("Datos/ids_User.dat");
+            if(idsUser.exists()){
+                ObjectInputStream oisIdsUser = new ObjectInputStream(new FileInputStream(idsUser));
+                int consUser = (Integer) oisIdsUser.readObject();
+                Usuario.setCons(consUser);
+                oisIdsUser.close();
+            }
+        }catch (IOException | ClassNotFoundException e)
+        {
+            System.out.println("Error al cargar ids de usuarios: " + e.getMessage());
+            ObjetosBiblioteca.primerUser = null;
+        }
+        
+        
+        try{
+            File idsAdmin = new File("Datos/ids_Admin.dat");
+            if(idsAdmin.exists()){
+                ObjectInputStream oisIdsUser = new ObjectInputStream(new FileInputStream(idsAdmin));
+                int consAdmin = (Integer) oisIdsUser.readObject();
+                Administrador.setCons(consAdmin);
+                oisIdsUser.close();
+            }
+        }catch (IOException | ClassNotFoundException e)
+        {
+            System.out.println("Error al cargar ids de usuarios: " + e.getMessage());
+            ObjetosBiblioteca.primerUser = null;
+        }
+        
         System.out.println("Sesión cargada correctamente (o inicializada si era nueva).");
     }
 
